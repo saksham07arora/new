@@ -52,7 +52,11 @@ exports.deleteExpense = async (req, res) =>{
 }
 exports.getCategoryTotals = async (req, res) => {
     try {
+        const { id } = req.params; // Assuming the user ID is passed in params
         const totals = await ExpenseSchema.aggregate([
+            {
+                $match: { user: id } // Filter by user ID
+            },
             {
                 $group: {
                     _id: "$category",
@@ -65,5 +69,4 @@ exports.getCategoryTotals = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });
     }
-}
-
+};

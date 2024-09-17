@@ -18,27 +18,21 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers
-const { saveNote } = require('../controllers/notesController');
 const { addExpense, getExpense, deleteExpense, getCategoryTotals } = require('../controllers/expense');
 const { addIncome, getIncomes, deleteIncome } = require('../controllers/income');
 
-// Middleware
-const { checkToken } = require('../middleware/authMiddleware');
-
-// Notes route
-router.post('/notes', checkToken, saveNote);  // Saving note with token check
-
 // Income routes
 router
-    .post('/add-income', addIncome)        // Route for adding income
-    .get('/get-incomes/:id', getIncomes)       // Route for getting all incomes
-    .delete('/delete-income/:id', deleteIncome); // Route for deleting a specific income by ID
+    .post('/add-income', addIncome)        // Add income
+    .get('/get-incomes/:id', getIncomes)   // Get incomes by user ID
+    .delete('/delete-income/:id', deleteIncome); // Delete income by ID
 
 // Expense routes
 router
-    .post('/add-expense', addExpense)      // Route for adding expense
-    .get('/get-expenses/:id', getExpense)      // Route for getting all expenses
-    .delete('/delete-expense/:id', deleteExpense) // Route for deleting a specific expense by ID
-    .get('/get-category-totals', getCategoryTotals); // Route for getting category totals
+    .post('/add-expense', addExpense)      // Add expense
+    .get('/get-expenses/:id', getExpense)  // Get expenses by user ID
+    .delete('/delete-expense/:id', deleteExpense) // Delete expense by ID
+    .get('/get-category-totals/:id', getCategoryTotals); // Get category totals by user ID
 
 module.exports = router;
+
